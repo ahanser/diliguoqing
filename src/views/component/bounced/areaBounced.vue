@@ -208,12 +208,9 @@ export default {
         return arr1.length;
       });
       let array = arrs.concat(arrs1);
-      console.log(arrs, arrs1);
-      console.log(array);
        let obj={//存入行政区域的选择项
           areaChecked:array
       };
-      console.log(this.distributorsInfo);
       var cityId=[];
       var areaId=[];
       for(let i=0;i<this.distributorsInfo.length;i++){
@@ -229,8 +226,6 @@ export default {
         });
         
       });
-      console.log(areaId);
-      console.log(cityId);
       
       let cityChecked={
         areaId:areaId,
@@ -261,7 +256,6 @@ export default {
     },
     closeDialog(){//关闭弹框
           let areaChecked=JSON.parse (localStorage.getItem("elocoareaChecked"));
-          console.log(areaChecked);
           if(areaChecked!=null){
               if(areaChecked.areaChecked.length==2){//雁塔和新城全选的情况
                 this.distributorsInfo[0].country=areaChecked.areaChecked[0].country;
@@ -276,7 +270,6 @@ export default {
                             { id: "3", fieldName: "石家街", selected: false },
                             { id: "4", fieldName: "辛家庙", selected: false }
                           ];
-                    console.log("0000");
                 }
                 if(areaChecked.areaChecked[0].partitionName=="新城区"){//只选择了新城区
                     this.distributorsInfo[0].country=areaChecked.areaChecked[0].country;
@@ -310,7 +303,6 @@ export default {
       //三级change事件
 
       this.childrenArray1 = this.distributorsInfo[topIndex].country;
-      console.log(this.childrenArray1);
       var tickCount = 0,
         unTickCount = 0,
         len = this.childrenArray1.length;
@@ -394,7 +386,6 @@ export default {
       //三级change事件
 
       this.childrenArray1 = this.dis[topIndex].country;
-      console.log(this.childrenArray1);
       var tickCount = 0,
         unTickCount = 0,
         len = this.childrenArray1.length;
@@ -447,12 +438,9 @@ export default {
       }
     },
     getAeraCity(){//获取地区的城市
-        console.log(url.getAreaCity); 
         let _this=this;
          this.$http.get(url.getAreaCity)
           .then(function (response) {
-            console.log(":::::");
-            console.log(response);
 
             _this.distributorsInfo=response.data.city;
           })
@@ -464,7 +452,6 @@ export default {
   },
    mounted(){
       this.getAeraCity();
-      console.log(url.getAreaCity);
       localStorage.clear();//清空保存的状态数据
     }
 };

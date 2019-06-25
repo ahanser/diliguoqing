@@ -42,9 +42,10 @@
         width="60%"
         top="10vh"
         >
-        <h1 id="mapTitle" style="text-align:center;">{{this.getCityName[0]+'的'+this.radioTyleBounceArr.selectType}}<span style="text-align:center; font-size:13px; margin-left:20px" >{{mapServerDateTime1}}</span></h1>
+        <h1 id="mapTitle" style="text-align:center;">{{this.getCityName[0]+mapServerDateTime1+'    '+this.radioTyleBounceArr.selectType}}<span style="text-align:center; font-size:13px; margin-left:20px" ></span></h1>
         
-          <el-button type="primary" @click="download()" style="position:absolute; bottom:25px;right:47%; z-index:1111111">下载</el-button>
+          <el-button type="primary" @click="download()" style="position:absolute; bottom:25px;right:53%; z-index:1111111">下载</el-button>
+          <el-button type="primary" @click="report()" style="position:absolute; bottom:25px;right:40%; z-index:1111111">报告</el-button>
         <div id="item" ref="item" style="width:95%;height:450px;margin:0 auto;">
         
             <!-- <img :src="qualityImg" alt="" style="width:98%;"> -->
@@ -69,15 +70,24 @@
         width="40%"
         top="10vh"
         >
-        <h1 id="mapTitle" style="text-align:center;">{{this.getCityName[0]+'的'+this.radioTyleBounceArr.selectType}}<span style="text-align:center; font-size:13px; margin-left:20px" >{{mapServerDateTime1}}</span></h1>
+        <h1 id="mapTitle" style="text-align:center;">{{this.getCityName[0]+mapServerDateTime1+'    '+this.radioTyleBounceArr.selectType}}<span style="text-align:center; font-size:13px; margin-left:20px" ></span></h1>
           <el-table :data="tableDatainfo" style="width: 100%" border :header-cell-style="{background:'#1E90FF',color:'#fff'}">
-                <el-table-column prop="type" label="类别" align="center">
+                <el-table-column prop="areaCode" label="区域" align="center">
                 </el-table-column>
-                <el-table-column prop="all" label="全部土地类别"  align="center">
+                <el-table-column prop="meanData" label="均值"  align="center">
+                </el-table-column>
+                  <el-table-column prop="maxData" label="最大值"  align="center">
+                </el-table-column>
+                  <el-table-column prop="minData" label="最小值"  align="center">
+                </el-table-column>
+                  <el-table-column prop="stdData" label="标准差"  align="center">
+                </el-table-column>
+                  <el-table-column prop="areaData" label="面积"  align="center">
                 </el-table-column>
    
               </el-table>
-        <el-button type="primary" @click="download()" style="position:absolute; bottom:10px;right:43%; z-index:1111111">下载</el-button>
+        <el-button type="primary" @click="analysisTableExport()" style="position:absolute; bottom:10px;right:43%; z-index:1111111">下载</el-button>
+       
           
         <span slot="footer" class="dialog-footer" style="text-align:center;">
        
@@ -91,6 +101,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+
 import url from "@/api/port";
 //import pdf from "@/assets/Git.pdf";
 import esriLoader from "esri-loader"
@@ -133,16 +144,21 @@ export default {
             type: '面积',
             all: '暂无数据',
          
-          }, {
-            type: '2016-05-01',
+          }, 
+           {
+            type: '最大值',
+             all: '暂无数据',
+            
+          },{
+            type: '最小值',
              all: '暂无数据',
             
           }, {
-            type: '2016-05-03',
+            type: '标准差',
             all: '暂无数据',
            
           }, {
-            type: '2016-05-03',
+            type: '面积',
             all: '暂无数据',
            
           }]
@@ -163,6 +179,8 @@ export default {
       "getDateObj",//点击查询传入来的开始时间和结束时间
       "mapCityArr",//区域传来的县、市或者甘肃省的code  下载图片用
       "getCityName",//区域传过来的县、市或者省的名字
+      "getMapCity",
+      "launchCityArr"
     ])
   },
   
@@ -203,14 +221,12 @@ export default {
     }
   },
   methods: {
-    
-     download(){//估算的下载
-            console.log(this.checkedCities11);
-            var soucrce=this.sourceTypeSelectedOBj.substr(7,3)
-    
-            console.log(url.downloadMapServer+"?areaCode="+this.mapCityArr.exportCode+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&sourceType="+soucrce+"");
-        
-            createImg(url.downloadMapServer+"?areaCode="+this.mapCityArr.exportCode+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&sourceType="+soucrce+"");
+    report(){//报告下载
+
+ 
+      //link.href ='http://192.168.5.31:8000/api/dbf/report?areaCode='+is.mapCityArr.exportCode+'&dateFolderName='+this.checkedCities11+'&algorithmType="+this.radioTyleBounceArr.secrchType+"&sourceType="+soucrce+"'
+       
+  createImg(url.excel+'?areaCode='+this.mapCityArr.exportCode[0]+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&sourceType="+this.sourceTypeSelectedOBj.substr(7,3));
             function createImg(url){
                   var oA = document.createElement("a");
                   oA.download = '';// 设置下载的文件名，默认是'下载'
@@ -219,10 +235,45 @@ export default {
                   oA.click();
                   oA.remove(); // 下载之后把创建的元素删除
             }
+    },
+     download(){//估算的下载
+            console.log(this.checkedCities11);
+            var soucrce=this.sourceTypeSelectedOBj.substr(7,3)
+      
+            console.log(url.downloadMapServer+"?areaCode="+this.mapCityArr.exportCode+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&sourceType="+soucrce+"");
+        
+            createImg(url.downloadMapServer+"?areaCode="+this.mapCityArr.exportCode+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&sourceType="+soucrce+"");
+            function createImg(url){
+                  var oA = document.createElement("a");
+                  oA.download = '';// 设置下载的文件名，默认是'下载'  
+                  oA.href = url;
+                  document.body.appendChild(oA);
+                  oA.click();
+                  oA.remove(); // 下载之后把创建的元素删除
+            }
+
             function saveAsPNG(canvas) {
                 return canvas.toDataURL("image/png");
             }
     },
+     analysisTableExport(){//分析中的导出表格
+        console.log(this.algorithmType);
+        console.log(this.checkedCities11);
+        console.log(this.sourceTypeSelectedOBj.substr(7,3));
+        console.log(this.radioTyleBounceArr.secrchType);
+        console.log(createImg('http://192.168.5.31:8000/api/dbf/getDbfInfoExcel'+"?areaCode="+this.parametersObj.cityCode+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&dataType="+this.sourceTypeSelectedOBj.substr(7,3)+"&areaName="+this.getCityName[0]));
+     
+         createImg(url.report+"?areaCode="+this.mapCityArr.exportCode[0]+"&dateFolderName="+this.checkedCities11+"&algorithmType="+this.radioTyleBounceArr.secrchType+"&dataType="+this.sourceTypeSelectedOBj.substr(7,3)+"&areaName="+this.getCityName[0]);
+            function createImg(url){
+                  var oA = document.createElement("a");
+                  oA.download = '';// 设置下载的文件名，默认是'下载'
+                  oA.href = url;
+                  document.body.appendChild(oA);
+                  oA.click();
+                  oA.remove(); // 下载之后把创建的元素删除
+            }
+    },
+
      ...mapActions("quality", ["rightListArr","resetSelect"]),
     handleClick1(tab, event) {
       console.log(tab, event);
@@ -308,11 +359,13 @@ export default {
       //console.log(this.radioTyleBounceArr);
       //console.log( this.current);
       // console.log(this.checkedCities11);
-      // console.log(this.parametersObj.cityCode);
+     
+       console.log(this.launchCityArr);
+       
       // console.log(proTime);
       //console.log(this.getCityArr);//区域模块传来的code码
    //加载专题图
-  
+
            if(this.radioTyleBounceArr.radioType=='2'){
             this.gettabledata()
                       if (this.checkedCities11.length < 1) {
@@ -387,9 +440,9 @@ export default {
           
               var _this=this;
               setTimeout(function(){
-          // console.log("http://192.168.5.17:6080/arcgis/rest/services/GDBServer/"
-          // +_this.radioTyleBounceArr.secrchType
-          // +"_FB/MapServer");
+          console.log("http://192.168.5.17:6080/arcgis/rest/services/GDBServer/"
+          +_this.radioTyleBounceArr.secrchType
+          +"_FB/MapServer");
                   this.map='';
                   this.view=''
                  _this.getMapServer(
@@ -446,7 +499,7 @@ export default {
     },
       getBaseMap() {
       const options = {
-         url: "http://192.168.5.17:8082/arcgisApi/4.9/init.js"
+         url: url.mapPai
        };
       esriLoader
         .loadModules(
@@ -489,7 +542,7 @@ export default {
     async initGoogleLayerClass() {
       var gl = null;
       const options = {
-        url: "http://192.168.5.17:8082/arcgisApi/4.9/init.js"
+        url: url.mapSever
       };
       await esriLoader
         .loadModules(
@@ -689,34 +742,36 @@ getMapServer(url,definitionExpression) {
                       
                      console.log(_this.parametersObj.cityCode.split(',')[0].split(';').length);
                      if(_this.parametersObj.cityCode.split(',')[0].split(';').length>10){
+                       console.log('走的省方法');
+                       
                         _this.view.extent=results.features[0].geometry.extent
                        _this.view.zoom=6;
-                      // _this.view.center=[105.719348,34.591929];
+                      
                        return
                     }
                     
                     var zoomExtent=results.features[0].geometry.extent;
-                    if(results.features.length>1&&results.features.length<=10){ 
+                    if(results.features.length>1&&results.features.length<=15){ 
                       
                       // _this.view.goTo({
                       //       target: results.features[0].geometry.extent        
                                         
                       //   });
                       console.log(results.features)                   
-                      console.log('进来方法了');
+                      console.log('进来县方法了');
                       console.log(_this.parametersObj.cityCode);
                       
                        _this.view.extent=results.features[0].geometry.extent
-                     
+                       _this.view.zoom=9;
+                     return
                     }
                    else{
                         if(zoomExtent!=null){
-                          console.log(_this.view);
-                            // _this.view.goTo({
-                            //     target: zoomExtent.expand(-50)
-                            // });
+                            console.log('走的市方法');
+                            
+                           
                             _this.view.extent=results.features[0].geometry.extent
-                            _this.view.zoom=7;
+                            _this.view.zoom=8;
                         }
 
                     }
@@ -729,10 +784,7 @@ getMapServer(url,definitionExpression) {
                 // });
                 
             
-              // var pt = new Point({
-              //   latitude: 49,
-              //   longitude: -126
-              // });
+             
                 var compass = new Compass({//指南针
                   view: this.view,
                 });
@@ -805,9 +857,9 @@ getMapServer(url,definitionExpression) {
       }else{
             this.mapServerDateTime1=dateYear+"年"+dateMmouth+"月"+dateDay+"日";
       }
-      this.$http.post('http://192.168.5.61:8080/api/dbf/getDbfInfo',{
+      this.$http.post('http://192.168.5.17:8080/api/dbf/getDbfInfo',{
         algorithmType: that.radioTyleBounceArr.secrchType,
-          areaCode:  that.parametersObj.cityCode,
+          areaCode: that.mapCityArr.exportCode[0],
           dataType: that.sourceTypeSelectedOBj.substr(7,3),
           dateFolderNames: that.checkedCities11
      
@@ -829,8 +881,8 @@ getMapServer(url,definitionExpression) {
 
 .switchTab {
   position: absolute;
-  top: 30px;
-  right: 4%;
+  top: 11%;
+  right: 10%;
   width: 15%;
   background: #fff;
   z-index: 99;

@@ -102,7 +102,7 @@ export default {
   watch: {
     arrs: {
       handler: function(n, o) {
-        console.log(n, o);
+        // console.log(n, o);
         if (n[0].label.radio.length == 2) {
           n[0].label.radio.splice(0, 1);
         }
@@ -115,7 +115,6 @@ export default {
     ensure() {
       this.isStateFn = false;
       // this.$store.dispatch("human/stateListArr", this.check);
-      console.log(this.check);
        let obj={
           type:this.arrs[0].label.radio
         }
@@ -134,7 +133,7 @@ export default {
   },
   mounted() {
     this.init();
-    console.log("组件销毁");
+    // console.log("组件销毁");
     localStorage.clear();
   },
   destroyed(){

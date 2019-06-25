@@ -64,7 +64,6 @@ export default {
       this.menuList.map(val => {
         this.Path.push(val.path);
       });
-      console.log(this.$route.path.replace("/", ""));
       // let _this = this;
       // let num = this.menuList.findIndex(
       //   v => v.path == _this.$route.path.replace("/", "")
@@ -86,11 +85,11 @@ export default {
   .esri-interactive{
     background-color: #ff3040;
   }
-  div{
-    &:nth-of-type(1){
-         height: calc(100% - 0px)!important;
-    }
-  }
+  // div{
+  //   &:nth-of-type(1){
+  //        height: calc(100% - 0px)!important;
+  //   }
+  // }
   .el-header {
     //  background: url("../../../static/img/topBack.png") no-repeat left center;
     background-size: 100% 100%;

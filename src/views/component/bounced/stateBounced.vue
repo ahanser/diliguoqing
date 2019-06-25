@@ -161,8 +161,6 @@ export default {
   watch: {
     arrs: {
       handler: function(n, o) {
-        console.log(n);
-        console.log(o);
         if (n[0].label.radio.length == 2) {
           n[0].label.radio.splice(0, 1);
         }
@@ -179,20 +177,15 @@ export default {
   methods: {
     ...mapActions("ecolo", ["stateListArr", "changeState"]),
     ensure() {
-      console.log(this.arrs[0].label.radio);
       let arrScore = [];
-      console.log(this.$refs.score);
       for (let i = 0; i < this.$refs.score.length; i++) {
-        console.log(this.$refs.score[i]._vnode.data.attrs["aria-checked"]);
         if (this.$refs.score[i]._vnode.data.attrs["aria-checked"] == true) {
           arrScore.push(this.$refs.score[i].$el.getAttribute("scoreTyle"));
         }
       }
-      console.log(arrScore);
       this.isStateFn = false;
 
       //存储用户确定确定过的复选框
-      console.log(this.arrs[0].label.radio);
         let obj={
           gaofen:this.arrs[0].label.radio,
           zhongfen:this.arrs[1].label.radio,
@@ -202,7 +195,6 @@ export default {
       this.$store.dispatch("ecolo/changeState", arrScore);
     },
     closeDialog(){//关闭弹框的事件  
-        console.log(JSON.parse (localStorage.getItem("selectScoreType")));
         let selectScoreType=JSON.parse (localStorage.getItem("selectScoreType"));
         if(selectScoreType!=null){
             this.arrs[0].label.radio=selectScoreType.gaofen;

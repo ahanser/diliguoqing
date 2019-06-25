@@ -296,7 +296,6 @@ export default {
       let result = await this.$httpGet("dept/deptList");
 
       if (result.data.code == 0) {
-        console.log(result);
 
         var key = "children";
 
@@ -328,7 +327,6 @@ export default {
 
         this.data2 = parseJson(result.data.result);
 
-        console.log(this.data2);
       }
     },
 
@@ -378,7 +376,6 @@ export default {
 
       this.addTreeName = data.label;
 
-      console.log(data);
     },
     addDept() {
       this.isAdd = true;
@@ -400,7 +397,6 @@ export default {
       let params = "id=" + id;
 
       let result = await this.$httpGet("dept/edit", params);
-      console.log(result);
 
       if (result.data.code == 0) {
         this.isEdit = true;
@@ -423,7 +419,6 @@ export default {
           for (var i in data) {
             if (data[i].id == id) {
               that.editTreeName = data[i].label;
-              console.log(data[i].label);
 
               break;
             } else {
@@ -454,7 +449,6 @@ export default {
             .$httpGet("dept/del", params)
 
             .then(function(res) {
-              console.log(res);
 
               if (res.data.code == 0) {
                 that.getChild(that.optionId);
@@ -509,7 +503,6 @@ export default {
           message: result.data.msg
         });
       }
-      console.log(this.addItem);
     },
     async editConfirm() {
       let result = await this.$httpPost("dept/update", this.editItem);

@@ -82,6 +82,7 @@ export default {
       "stateValArr",
       "parametersObj",//区域传来的参数对象
       "sourceTypeSelectedOBj",//数据源传来的参数
+ 
     ])
   },
    watch:{

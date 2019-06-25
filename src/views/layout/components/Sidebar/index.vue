@@ -165,8 +165,6 @@ export default {
 
         closeAll() {
 
-            console.log("背景遮罩图")
-
             let openMenu = this.$refs.navbar.openedMenus.concat([])
 
             openMenu = openMenu.reverse()

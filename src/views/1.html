@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>加载切片图层</title>
+  <!--使用bootstrap-->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!--引入arcgis脚本以及样式-->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.8/"></script>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    #layerToggle {
+      top: 20px;
+      right: 20px;
+      position: absolute;
+      z-index: 99;
+      background-color: white;
+      border-radius: 8px;
+      padding: 10px;
+      opacity: 0.75;
+    }
+
+  </style>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/layers/TileLayer",
+      "dojo/dom",
+      "dojo/on",
+      "dojo/domReady!"
+    ], function (Map, SceneView, TileLayer, dom, on) {
+
+      //创建一个切片图层,url参数用于指定加载的地图地址
+      /*
+       * 下面使用Esri World Transportation服务和包含纽约市住房密度数据的服务加载街道和高速公路图层。
+       * */
+      var transportationLayer = new TileLayer({
+        url: "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer",
+        // This property can be used to uniquely identify the layer
+        id: "streets", //d唯一标识图层，可以使用id来进行引用。如果没有直接设置，则会在创建图层时自动生成。
+        visible: false
+      });
+
+      var housingLayer = new TileLayer({
+        url: "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Housing_Density/MapServer",
+        id: "ny-housing",
+        opacity: 0.9
+      });
+      //创建一个地图
+      var map = new Map({
+        basemap: 'oceans',
+        //将图层添加到地图容器中
+        layers: [housingLayer]
+      });
+      //也可以使用add方法加载图层
+      map.add(transportationLayer);
+      //创建一个场景视图
+      var view = new SceneView({
+        container: "viewDiv",
+        map: map
+      });
+      view.on("layerview-create", function (event) {
+        if (event.layer.id === "ny-housing") {
+          console.log("LayerView for New York housing density created!", event.layerView);
+        }
+        if (event.layer.id === "streets") {
+          console.log("LayerView for streets created!", event.layerView);
+        }
+      });
+      //监听视图的layerview-create事件
+      view.when(function () {
+        housingLayer.when(function () {
+          //视图跳转到住房密度数据图层。
+          view.goTo(housingLayer.fullExtent);
+        });
+      });
+      //获取streetsLayer节点，
+      var streetsLayerToggle = dom.byId("streetsLayer");
+      //给checkbox添加change事件。用于切换地图显示
+      on(streetsLayerToggle, "change", function () {
+        transportationLayer.visible = streetsLayerToggle.checked;
+      });
+    });
+
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  <span id="layerToggle">
+    <input type="checkbox" id="streetsLayer"> Transportation
+  </span>
+</body>
+
+</html>

@@ -54,7 +54,7 @@ export default {
             var gl = this.initGoogleLayerClass();
 
             gl.then(gl => {
-              console.log(gl);
+              // console.log(gl);
               // 代码书写部分
               var map = new Map({
                 basemap: "topo"
@@ -74,7 +74,7 @@ export default {
             });
           },
           reason => {
-            console.log(reason);
+            // console.log(reason);
           }
         );
     },
@@ -127,13 +127,13 @@ export default {
             esriConfig.request.corsEnabledServers.push("http://www.google.cn/");
           },
           reason => {
-            console.log(reason);
+            // console.log(reason);
           }
         );
       return gl;
     },
     changeBounced(data) {
-      console.log(data);
+      // console.log(data);
       this.flag.hasOwnProperty(data) && (this.flag[data] = !this.flag[data]);
     }
   },

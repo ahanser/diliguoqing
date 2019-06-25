@@ -100,7 +100,7 @@ export default {
       this.$emit("changeBounced", data);
     },
     search() {
-      console.log(this.getterListArr);
+      // console.log(this.getterListArr);
       if (this.$store.getters["val/getterListArr"].length) {
         this.$store.dispatch("val/rightListArr", true);
       } else {
@@ -125,7 +125,7 @@ export default {
       var endYear=this.endTime.substr(0,4);
       var endtMouth=this.endTime.substr(5,2);
       var endtDay=this.endTime.substr(8,2);
-      console.log(endtDay);
+      // console.log(endtDay);
       if(startYear>endYear){
             const h = this.$createElement;
               this.$message({
@@ -166,7 +166,7 @@ export default {
         var endYear=this.endTime.substr(0,4);
         var endtMouth=this.endTime.substr(5,2);
         var endtDay=this.endTime.substr(8,2);
-        console.log(endtDay);
+        // console.log(endtDay);
         if(startYear>endYear){
               const h = this.$createElement;
                 this.$message({

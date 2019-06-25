@@ -257,11 +257,10 @@ export default {
         ecocoId:ecocoId,
         exportCode:exportCode
       }
-      console.log(cityChecked);
-      
-      
 
-         // console.log(distribCode);//拼接的城市code码
+
+      console.log('这是我打印的');
+      //console.log(distribCode);//拼接的城市code码
           //console.log("codecode");
             if(cityChecked.areaId.length>=80){
              this.loading = this.$loading({
@@ -276,6 +275,11 @@ export default {
         this.$store.dispatch("quality/getParameters", parametersObj);
         this.$store.dispatch("quality/launchCityArr", distribCode);//发射的选择的县的code码
         this.$store.dispatch("quality/launchCityName", areaName);//发射的选择的县、市或者甘肃省的名字
+  
+        
+      console.log(this.getMapCity);
+      
+      
     },
      closeDialog(){//关闭弹框
           let areaChecked=JSON.parse (localStorage.getItem("qualityareaChecked"));

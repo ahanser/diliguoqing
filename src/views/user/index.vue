@@ -273,7 +273,6 @@ export default {
 
       if (result.data.code == 0) {
         this.arr = result.data.result.content;
-        console.log(this.arr)
         this.totalNum = result.data.result.totalNum;
       } else {
         this.$message({
@@ -470,7 +469,6 @@ export default {
     async editConfirm() {
       let result = await this.$httpPost("userManger/update", this.edititem);
       if (result.data.code == 0) {
-        console.log(result);
         this.isEdit = false;
         this.init();
         this.$message({

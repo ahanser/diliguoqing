@@ -91,7 +91,6 @@ export default {
     },
     search() {
       console.clear();
-      console.log(this.stateValArr);
       
       if (this.$store.getters["ecolo/getterListArr"].length) {
         this.$store.dispatch("ecolo/rightListArr", true);
@@ -128,7 +127,6 @@ export default {
       var endYear=this.endTime.substr(0,4);
       var endtMouth=this.endTime.substr(5,2);
       var endtDay=this.endTime.substr(8,2);
-      console.log(endtDay);
       if(startYear>endYear){
             const h = this.$createElement;
               this.$message({
@@ -169,7 +167,6 @@ export default {
         var endYear=this.endTime.substr(0,4);
         var endtMouth=this.endTime.substr(5,2);
         var endtDay=this.endTime.substr(8,2);
-        console.log(endtDay);
         if(startYear>endYear){
               const h = this.$createElement;
                 this.$message({

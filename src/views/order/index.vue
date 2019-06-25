@@ -337,7 +337,6 @@ export default {
 
       this.addTreeName = data.label;
 
-      console.log(data);
     },
     //6.增加菜单提交
     async addConfirm() {
@@ -447,7 +446,6 @@ export default {
           parentId: result.data.result.parentId
         };
 
-        console.log(result);
       }
 
       this.active = [];
@@ -458,8 +456,6 @@ export default {
         for (var i in data) {
           if (data[i].id == id) {
             that.editTreeName = data[i].label;
-
-            console.log(data[i].label);
 
             break;
           } else {

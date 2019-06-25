@@ -108,7 +108,6 @@ const user = {
                 return toParse(arr);
               }
               let result = parseJson(response.data.result)
-              console.log(result)
               commit('SET_DEPTLIST', result);
             }
             resolve()

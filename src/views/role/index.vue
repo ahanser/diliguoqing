@@ -496,7 +496,6 @@ export default {
             .$httpGet("role/del", params)
 
             .then(function(res) {
-              console.log(res);
 
               if (res.data.code == 0) {
                 that.$message({

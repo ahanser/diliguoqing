@@ -44,7 +44,8 @@ export default {
        ],
       options: [],
       value:'1',
-      secrchType:'VCI'
+      secrchType:'VCI',
+      radioType:'1'
     };
   },
   computed: {
@@ -101,7 +102,7 @@ export default {
       this.value="1"
       this.$store.dispatch("quality/radioListArr", {
         selectType: "植被覆盖度",
-        radioType: "1",
+        radioType: this.radio,
         secrchType:'VCI'
       });
     }
@@ -117,7 +118,7 @@ export default {
   position: absolute;
   background: #fff;
   width: 400px;
-  top: 16px;
+  top: 10%;
   border-radius: 3px;
   height: 40px;
   left: 8%;

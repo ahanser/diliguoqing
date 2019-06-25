@@ -76,7 +76,7 @@ export default {
     ...mapActions("human", ["changeListArr","getMapCity"]),
     ensure() {
       this.isRegionFn = false;
-      console.log(this.checkedCities);
+      // console.log(this.checkedCities);
         let obj={
             checkedCities:this.checkedCities
         }
@@ -94,7 +94,7 @@ export default {
         checkedCount > 0 && checkedCount < this.cities.length;
     },
     handleClick() {
-      console.log("0000");
+      // console.log("0000");
     },
     closeDialog(){//关闭弹框
           let selectScoreType=JSON.parse (localStorage.getItem("interferenceAreatype"));

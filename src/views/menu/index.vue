@@ -358,8 +358,6 @@ export default {
       this.addItem.menuId = data.id;
 
       this.addTreeName = data.label;
-
-      console.log(data);
     },
 
     //6.新增确定提交
@@ -422,7 +420,6 @@ export default {
 
                   message: res.data.msg
                 });
-                console.log(res);
               }
             })
 
@@ -478,7 +475,6 @@ export default {
           for (var i in data) {
             if (data[i].id == id) {
               that.editTreeName = data[i].label;
-              console.log(data[i].label);
 
               break;
             } else {

@@ -84,7 +84,6 @@ export default {
       let arr1 = this.items.filter(val => {
         return val.check == true;
       });
-      console.log(arr1);
       this.isEcoloFn = false;
       let obj={
         level1:this.items[0].check,
@@ -95,7 +94,6 @@ export default {
     },
     closeDialog(){//关闭弹框保留上次确定的选中内容
        let selectScoreType=JSON.parse (localStorage.getItem("levelType"));
-       console.log(selectScoreType);
        if(selectScoreType!=null){
           this.items[0].check=selectScoreType.level1;
           this.items[1].check=selectScoreType.level2;

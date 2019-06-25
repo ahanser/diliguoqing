@@ -45,7 +45,6 @@ export default {
   watch:{
     mapCityArr(nl,ol){
       var _this=this;
-        console.log(_this.map.layers.items);
         for(let i=0;i<_this.map.layers.items.length;i++){//清楚上一次保留的图层
             if(_this.map.layers.items[i].id=="city"){
                 _this.map.remove(_this.map.layers.items[i]);
@@ -70,13 +69,10 @@ export default {
 
             gl.then(gl => {
 
-                    console.log(this.mapCityArr);
                     this.$http.post(url.getAreaBorder,{
                       "ids":this.mapCityArr.areaId
                     }).then(function(res){
 
-                          console.log(res);
-                          console.log(_this);
                           if(res.status==200){  
                             if(res.data.length!=0){
                                   for(var i=0;i<res.data.length;i++){
@@ -102,8 +98,6 @@ export default {
                                         id:"city"
                                       });
 
-                                      console.log(polygonGraphic);
-                                      
                                        _this.map.add(layer);
                                       
                                   }
@@ -117,8 +111,6 @@ export default {
                       "pids":this.mapCityArr.cityId
                     }).then(function(res){
 
-                          console.log(res);
-                          console.log(_this);
                           if(res.status==200){ 
                             if(res.data.length!=0){
                                   for(var i=0;i<res.data.length;i++){
@@ -181,7 +173,6 @@ export default {
             var gl = this.initGoogleLayerClass();
 
             gl.then(gl => {
-              console.log(gl);
               // 代码书写部分
               this.map = new Map({
                 basemap: "topo"
@@ -203,8 +194,6 @@ export default {
                       "ids":["1"]
                     }).then(function(res){
 
-                          console.log(res);
-                         
                           //加载内蒙古市的边界
                           if(res.status==200){  
                             if(res.data.length!=0){
@@ -297,7 +286,6 @@ export default {
       return gl;
     },
     changeBounced(data) {
-      console.log(data);
       this.flag.hasOwnProperty(data) && (this.flag[data] = !this.flag[data]);
     }
   },

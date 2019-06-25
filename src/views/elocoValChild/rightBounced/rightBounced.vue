@@ -73,12 +73,12 @@ export default {
   },
   watch: {
     rightBounceArr(nl, ol) {
-      console.log(nl, ol);
+      // console.log(nl, ol);
     }
   },
   methods: {
     handleClick1(tab, event) {
-      console.log(tab, event);
+      // console.log(tab, event);
     },
     addClass: function(index) {
       this.current = index;

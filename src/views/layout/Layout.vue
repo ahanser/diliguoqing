@@ -65,7 +65,6 @@ export default {
       this.$store.dispatch('CloseSideBar', { withoutAnimation: false })
     },
        init(){
-         console.log( this.$store.state.performance.times)
   
      }
   }

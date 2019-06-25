@@ -98,7 +98,6 @@ export default {
       "leftBounceArrSelectType"
     ]),
     selectType(val) {
-      console.log(val);
       this.selectInput = val;
       this.ecolotyArearadio = "1";
       if (val == "生态分布") {
@@ -117,7 +116,6 @@ export default {
       }
       if (val == "类型转换") {
         this.ecolotyArea = this.zhuanhuanType;
-        console.log(this.ecolotyArearadio);
         
       }
       let obj = {
@@ -130,13 +128,10 @@ export default {
       
     },
     getRadioType(val) {
-      console.log(val);
-      console.log(this.value);
       let toTabData = {
         inputSelect: val,
         radioType: this.value
       };
-      console.log(toTabData);
       this.$store.dispatch("ecolo/leftListArr", toTabData);
     },
     init() {

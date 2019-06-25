@@ -189,7 +189,6 @@ export default {
     ensure() {
      
       let scoreTypeArr = [];
-      console.log(this.checkList);
       if (this.checkListTall[0] == "GF1" || this.checkListTall[0] == "GF2") {//做的点击中分和低分下的月份
         var year;
         if(this.valueTall=="COAY"){
@@ -291,15 +290,12 @@ export default {
           }
         scoreTypeArr.push(diObj);
       }
-      console.log(scoreTypeArr);
       
         let obj={
           zhongfen:this.checkList,
           difen:this.checkListLowscore
         }
    
-      console.log(this.checkListTall);
-      console.log(this.valueTall);
         
         var strZhongSourceType;
         if(this.checkList.length!=0 &&this.checkListLowscore.length==0 ){//只选中分
@@ -323,7 +319,6 @@ export default {
          if(this.checkListLowscore.length!=0 &&this.checkListTall.length!=0 && this.checkList.length!=0){//选择了低分和高分 中分
           strZhongSourceType="source:"+this.checkListTall[0]+",cycle:"+this.valueTall+";source:"+this.checkListLowscore[0]+",cycle:"+this.valuedi+";source:"+this.checkList[0]+",cycle:"+this.valueZhong;
         }
-        console.log(strZhongSourceType);
 
       localStorage.setItem("qualityselectScoreType",JSON.stringify(obj));
       this.$store.dispatch("quality/changeState", scoreTypeArr);

@@ -224,7 +224,6 @@ export default {
       }
     },
     leftBounceArrSelectType(nl, ol) {
-      console.log(nl);
       this.leftSelectType = nl;
       if (nl.radioType == "类型转换") {
         this.minSelect = 0;
@@ -233,7 +232,6 @@ export default {
       }
     },
     resetSelectArr(nl,ol){//监听右侧弹框
-       console.log(nl);
        this.checkedCities11 = [];
 
     }
@@ -247,7 +245,6 @@ export default {
       this.current = index;
     },
     bouncedEchart(){
-      console.log(this.leftBounceArr);
       if(this.leftBounceArr.radioType=="生态分布"&&this.leftBounceArr.inputSelect=="1"){
            if (this.checkedCities11.length == 0) {
             const h = this.$createElement;

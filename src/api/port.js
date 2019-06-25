@@ -1,5 +1,6 @@
 let areaApi = "http://192.168.5.17:8080"; 
-let mapPai=  "http://192.168.5.17:7001"; 
+let mapPai=  "http://192.168.5.17:8082"; 
+let downApi="http://192.168.5.17:8080";
 const url = {
     //生态质量
     getAreaCity:`${areaApi}/api/area/list`,//获取行政区域的城市
@@ -11,6 +12,9 @@ const url = {
     getOption:`${areaApi}/api/algorithmFile/getAlgorithmType`,//左侧下拉列表数组数据的接口
     downloadMapServer:`${areaApi}/api/algorithmFile/downLoadPngById`,//下载地图服务照片
     mapSever:`${mapPai}/arcgisApi/4.9/init.js`,
+
+    report:`${downApi}/api/dbf/getDbfInfoExcel`,//报告下载按钮
+    excel:`${downApi}/api/dbf/report`//表格下载按钮
 };
 
 export default url;

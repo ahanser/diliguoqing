@@ -82,7 +82,6 @@ export default {
       let arr1=this.items.filter(val=>{
           return val.check==true
       })
-      console.log(arr1)
       this.isEcoloFn = false;
        let obj={
           level1:this.items[0].check,
